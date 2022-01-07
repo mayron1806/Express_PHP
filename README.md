@@ -27,7 +27,7 @@ Para utilizar e necessario configurar os seus controladores. Para fazer isso sig
 ```
 
 * Crie a pasta para receber o namespace do seu projeto e dentro dela cria uma pasta com o nome "controllers", dentro dela ficarão seus controladores que serão responsáveis pelas paginas de cada uma de suas rotas.
-* Depois disso crie um arquivo chamado "IndexController.php" e nele coloque o codigo abaixo.
+* Depois disso dentro da pasta controllers crie um arquivo chamado "IndexController.php" e nele coloque o codigo abaixo.
 
 ```php
 <?php
