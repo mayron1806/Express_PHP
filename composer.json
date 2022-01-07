@@ -1,7 +1,19 @@
 {
+    "name": "mayron1806/express_php",
+    "description": "Um gerenciador de rotas para PHP baseado na sintaxe do Express (Node.js)",
+    "require": {
+        "php": ">=8.0"
+    },
+    "authors": [
+        {
+            "name": "Mayron Gonçalves Fernandes",
+            "email": "mayronfernandes01@gmail.com"
+        }
+    ],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
-            "App\\" : "App/"
+            "ExpressPHP\\" : "ExpressPHP/"
         }
     }
 }
