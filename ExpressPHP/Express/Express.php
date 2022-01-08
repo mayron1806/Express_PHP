@@ -7,12 +7,13 @@ class Express{
     // array para armazenar todas as rotas da aplicação
     private array $routes = array();
     // o caminho onde o controlador de todos o caminhos esta
-    private string $controllers_path;
+   
 
-    // define o caminho onde os controladores estão
-    public function setControllersPath(string $path){
-        $this->controllers_path = $path;
-    }
+    public function __construct(
+        private string $controllers_path = "DEFAULT",
+        private string $default_page = "ExpressPHP\\Controllers\\IndexController",
+        private string $default_action = "index"
+    ){}
 
     // retorna uma string com a rota atual
     public function getUrl() :string{
@@ -48,15 +49,41 @@ class Express{
             // pega a rota atual
             $url = $this->getUrl();
             // se nenhum caminho alternativo para os controllers foi criado ele procura um controller interno 
-            if(empty($this->controllers_path)){
-                Router::runDefault();
+            if($this->controllers_path === "DEFAULT"){
+                $this->runDefault();
             }
             else{
-                Router::run(routes: $this->routes, url: $url, controllers_path: $this->controllers_path);
+                $this->run(routes: $this->routes, url: $url, controllers_path: $this->controllers_path);
             }
         }
         catch (\Exception $e){
             echo "Erro na conexão com a rota : " . $e->getMessage();
         }
+    }
+    private function run(array $routes, string $url, string $controllers_path){
+        // verifica qual a rota que esta ativa
+        foreach($routes as $key => $value){
+            if( $value->route == $url){
+                // instancia uma classe do controller daquela rota
+                $class = $controllers_path . ucfirst($value->controller);
+                $action = $value->action;
+                // verifica se a classe existe
+                if(class_exists($class)){
+                    $controller = new $class;
+                    // verifica se o metedo existe
+                    if(method_exists($controller, $action)){
+                        $controller->$action();
+                        die();
+                    }
+                }
+            }
+        }
+        throw new \Exception("a rota solicitada não existe.");
+    }
+    private function runDefault(){
+        $class = $this->default_page;
+        $action = $this->default_action;
+        $controller = new $class;
+        $controller->$action();
     }
 }
