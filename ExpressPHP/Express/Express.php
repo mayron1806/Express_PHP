@@ -1,7 +1,6 @@
 <?php
     namespace ExpressPHP\Express;
     use ExpressPHP\Objects\Route;
-    use ExpressPHP\Router;
 
 class Express{
     // array para armazenar todas as rotas da aplicação
@@ -49,14 +48,41 @@ class Express{
             $url = $this->getUrl();
             // se nenhum caminho alternativo para os controllers foi criado ele procura um controller interno 
             if(empty($this->controllers_path)){
-                Router::runDefault();
+                $this->runDefault();
             }
             else{
-                Router::run(routes: $this->routes, url: $url, controllers_path: $this->controllers_path);
+                $this->run(routes: $this->routes, url: $url, controllers_path: $this->controllers_path);
             }
         }
         catch (\Exception $e){
             echo "Erro na conexão com a rota : " . $e->getMessage();
+            $this->runDefault();
         }
+    }
+    private function run(array $routes, string $url, string $controllers_path){
+        // verifica qual a rota que esta ativa
+        foreach($routes as $key => $value){
+            if( $value->route == $url){
+                // instancia uma classe do controller daquela rota
+                $class = $controllers_path . ucfirst($value->controller);
+                $action = $value->action;
+                // verifica se a classe existe
+                if(class_exists($class)){
+                    $controller = new $class;
+                    // verifica se o metedo existe
+                    if(method_exists($controller, $action)){
+                        $controller->$action();
+                        die();
+                    }
+                }
+            }
+        }
+        throw new \Exception("a rota solicitada não existe");
+    }
+    private function runDefault(){
+        $class = "ExpressPHP\\Controllers\\IndexController";
+        $action = "index";
+        $controller = new $class;
+        $controller->$action();
     }
 }

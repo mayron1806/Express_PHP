@@ -60,7 +60,7 @@ Para utilizar e necessario configurar os seus controladores. Para fazer isso sig
 
 ---
 ## Como funciona o ExpressPHP
-O ExpressPHP funciona basicamente com duas classes a Express e a Router.
+O ExpressPHP funciona basicamente com uma classe a Express.
 
  ### ***A classe Express*** 
 Ela é a classe principal, nela está basicamente o coração do ExpressPHP nela você encontra 4 métodos são eles:
@@ -69,10 +69,7 @@ Ela é a classe principal, nela está basicamente o coração do ExpressPHP nela
 * ***get***: adiciona a rota ao Express.
 * ***listen***: ele basicamente é responsavél por chamar o metodo que vai iniciar os serviços.
 
- ### ***A classe Router***
-Está classe apresenta apenas um metódo, o "**run**". Ele é responsavel por iniciar os servicos, ele pega a url atual, compara com as rotas do express e redireciona o usuario para o devido controlador.
-
-Além dessas duas classes existe mais uma, a "**Route**", ela é um objeto com as propriedades de uma rota
+Além dessa classe existe mais uma, a "**Route**", ela é um objeto com as propriedades de uma rota. Abaixo você pode ver as propriedades dela.
 
 | Propriedade | Funcionalidade | Tipo |
 |---|---|---|
