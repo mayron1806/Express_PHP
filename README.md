@@ -15,18 +15,21 @@ composer require mayron1806/express_php
 ## Como usar
 
 Para utilizar e necessario configurar os seus controladores. Para fazer isso siga os passos a seguir.
-* Adicione o namespace do seu projeto ao autoload do composer 
+* Adicione o namespace do seu projeto ao autoload do composer, no seu composer.json.
 
 ```json
-"autoload": {
-    "psr-4": {
-        "MyApp\\" : "MyApp/"
+{
+    "autoload": {
+        "psr-4": {
+            "MyApp\\" : "MyApp/"
+        }
     }
 }
+
 ```
 
-* Crie a pasta para receber o namespace do seu projeto e dentro dela cria uma pasta com o nome "**controllers**", dentro dela ficarão seus controladores que serão responsáveis pelas paginas de cada uma de suas rotas.
-* Depois disso crie um arquivo chamado "**IndexController.php**" e nele coloque o codigo abaixo.
+* Crie a pasta para receber o namespace do seu projeto, no diretorio raiz do seu projeto e dentro dela cria uma pasta com o nome "**controllers**", dentro dela ficarão seus controladores que serão responsáveis pelas paginas de cada uma de suas rotas.
+* Depois disso crie um arquivo dentro da pasta "**controllers**" chamado "**IndexController.php**" e nele coloque o codigo abaixo.
 
 ```php
 <?php
@@ -39,12 +42,12 @@ Para utilizar e necessario configurar os seus controladores. Para fazer isso sig
     }
 ```
 
-* Após tudo isso, é hora de criar o nosso script principal o "**index.php**". Dentro dele você deve colocar o codigo a seguir.
+* Após tudo isso, é hora de criar o nosso script principal o "**index.php**" que vai ficar no diretorio raiz do projeto. Dentro dele você deve colocar o codigo a seguir.
 
 ```php
 <?php
     require_once __DIR__. "/vendor/autoload.php";
-    use ExpressPHP/Express/Express;
+    use ExpressPHP\Express\Express;
     
     $app = new Express();
     $app->get("/", "IndexController", "index");
