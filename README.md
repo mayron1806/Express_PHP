@@ -49,10 +49,9 @@ Para utilizar e necessario configurar os seus controladores. Para fazer isso sig
     require_once __DIR__. "/vendor/autoload.php";
     use ExpressPHP\Express\Express;
     
-    $app = new Express();
-    $app->get("/", "IndexController", "index");
+    $app = new Express("MyApp\\Controllers\\");
 
-    $app->setControllersPath("MyApp\\Controllers\\");
+    $app->addRoute(route: "/", controller: "IndexController", action: "index",is_default_route: true);
 
     $app->listen();
 ```
@@ -63,11 +62,12 @@ Para utilizar e necessario configurar os seus controladores. Para fazer isso sig
 O ExpressPHP funciona basicamente com uma classe a Express.
 
  ### ***A classe Express*** 
-Ela é a classe principal, nela está basicamente o coração do ExpressPHP nela você encontra 4 métodos são eles:
+Ela é a classe principal, nela está basicamente o coração do ExpressPHP nela você encontra 5 métodos são eles:
 * ***setControllersPath***: recebe uma string com o caminho onde estão os namespaces do projeto.
 * ***getUrl***: retorna o path da url que está sendo acessada atualmente.
-* ***get***: adiciona a rota ao Express.
+* ***addRoute***: adiciona rotas ao Express.
 * ***listen***: ele basicamente é responsavél por chamar o metodo que vai iniciar os serviços.
+* ***run***: ele inicia os serviços. Quando chamado o "run" compara a url atual com as rotas definidas, se a achar alguma que coincide com a url atual ele executa essa rota, se não encontrar ele executa a rota definida como padrão.
 
 Além dessa classe existe mais uma, a "**Route**", ela é um objeto com as propriedades de uma rota. Abaixo você pode ver as propriedades dela.
 
